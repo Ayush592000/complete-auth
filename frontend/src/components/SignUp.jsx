@@ -24,7 +24,7 @@ const SignUp = () => {
             onChange={handleChange}
             name='name'
             autoFocus
-            value={setSignupInfo.name}
+            value={signupInfo.name}
             placeholder='Enter your name...' />
         </div>
         <div>
@@ -32,7 +32,7 @@ const SignUp = () => {
           <input type="email"
             onChange={handleChange}
             name='name'
-            value={setSignupInfo.email}
+            value={signupInfo.email}
             placeholder='Enter your email...' />
         </div>
         <div>
@@ -40,7 +40,7 @@ const SignUp = () => {
           <input type="password"
             onChange={handleChange}
             name='password'
-            value={setSignupInfo.password}
+            value={signupInfo.password}
             placeholder='Enter your password...' />
         </div>
         <button type='submit  '>Signup</button>
