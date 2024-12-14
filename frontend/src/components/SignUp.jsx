@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { handleError, handleSuccess } from '../utils'
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -10,9 +11,48 @@ const SignUp = () => {
   })
   const handleChange = (e) => {
     setSignupInfo({ ...signupInfo, [e.target.name]: e.target.value })
+    // console.log(signupInfo)
   }
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, password } = signupInfo;
+    if (!name || !email || !password) {
+      return handleError("name,email and password are required")
+    }
+    try {
+      const url = "http://localhost:3000/auth/signup";
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupInfo),
+      });
+      console.log(response)
+
+
+      const result = await response.json();
+      console.log("Success", result)
+      const { success, message, error } = result;
+      console.log(message)
+      if (success) {
+        handleSuccess(message);
+        setTimeout(() => {
+          navigate('/login');
+        }, 1000);
+      } else if (error) {
+        const detail = error?.details[0].message;
+        handleError(detail)
+      } else if (!success) {
+        handleError(message)
+      }
+      else {
+        console.error("Signup failed:", message);
+      }
+    } catch (error) {
+      handleError(error)
+    }
   }
   return (
     <div className='container'>
@@ -31,7 +71,7 @@ const SignUp = () => {
           <label htmlFor="email">Email</label>
           <input type="email"
             onChange={handleChange}
-            name='name'
+            name='email'
             value={signupInfo.email}
             placeholder='Enter your email...' />
         </div>
@@ -44,7 +84,7 @@ const SignUp = () => {
             placeholder='Enter your password...' />
         </div>
         <button type='submit  '>Signup</button>
-        <span>Already hae an account ?<Link to='/login'>Login</Link></span>
+        <span>Already have an account ?<Link to='/login'>Login</Link></span>
       </form>
       <ToastContainer />
     </div>

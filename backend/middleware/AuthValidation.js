@@ -7,6 +7,7 @@ const signUpValidation = (req, res, next) => {
     password: joi.string().min(4).max(100).required()
   });
   const { error } = schema.validate(req.body)
+  // console.log(error)
   if (error) {
     return res.status(400).json({ message: 'Bad request', error })
   }
