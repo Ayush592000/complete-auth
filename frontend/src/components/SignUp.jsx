@@ -29,13 +29,13 @@ const SignUp = () => {
         },
         body: JSON.stringify(signupInfo),
       });
-      console.log(response)
+      // console.log(response)
 
 
       const result = await response.json();
-      console.log("Success", result)
+      // console.log("Success", result)
       const { success, message, error } = result;
-      console.log(message)
+      // console.log(message)
       if (success) {
         handleSuccess(message);
         setTimeout(() => {

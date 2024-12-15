@@ -15,7 +15,7 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = loginInfo;
-    console.log("loginInfo", loginInfo)
+    // console.log("loginInfo", loginInfo)
     if (!email || !password) {
       return handleError("email and password are required")
     }
@@ -28,13 +28,13 @@ const LogIn = () => {
         },
         body: JSON.stringify(loginInfo),
       });
-      console.log(response)
+      // console.log(response)
 
 
       const result = await response.json();
-      console.log("Success", result)
+      // console.log("Success", result)
       const { success, message, jwtToken, name, error } = result;
-      console.log(message)
+      // console.log(message)
       if (success) {
         handleSuccess(message);
         localStorage.setItem('Token', jwtToken);

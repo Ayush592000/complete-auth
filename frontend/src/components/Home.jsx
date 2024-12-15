@@ -38,7 +38,7 @@ const Home = () => {
       });
 
       const result = await response.json();
-      console.log(result, "", "products", "", products)
+      // console.log(result, "", "products", "", products)
       setProducts(result)
     } catch (error) {
       handleError(error.message);
