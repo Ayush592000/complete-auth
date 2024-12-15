@@ -9,7 +9,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
       name: "mobile",
       price: 1000
     },
-    { 
+    {
       name: "tv",
       price: 20000
     },

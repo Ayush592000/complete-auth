@@ -25,6 +25,7 @@ const signUp = async (req, res) => {
 const logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body)
     const user = await UserModel.findOne({ email });
     const errorMessage = 'Auth failed email or password is wrong ';
     if (!user) {
@@ -39,8 +40,10 @@ const logIn = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     )
+    console.log(user.name)
     res.status(201).json({
-      message: 'Login successfully', success: true,
+      message: 'Login successfully',
+      success: true,
       jwtToken,
       email,
       name: user.name
