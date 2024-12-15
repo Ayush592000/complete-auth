@@ -52,9 +52,9 @@ const Home = () => {
       <button onClick={handleLogout}>Logout</button>
       <div>
         {
-          products && products?.map((item) => (
-            <ul>
-              <span>{item.name} {item.price}</span>
+          products && products?.map((item, index) => (
+            <ul key={index}>
+              <span >{item.name} {item.price}</span>
             </ul>
           ))
         }
