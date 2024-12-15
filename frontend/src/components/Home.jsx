@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 
 const Home = () => {
   const [loggedInUser, setLoggedInUser] = useState()
+  const [products, setProducts] = useState();
   useEffect(() => {
     setLoggedInUser(localStorage.getItem('Name'))
   }, [])
@@ -36,8 +37,9 @@ const Home = () => {
         },
       });
 
-      const products = await response.json();
-      console.log("Fetched Products:", products);
+      const result = await response.json();
+      console.log(result, "", "products", "", products)
+      setProducts(result)
     } catch (error) {
       handleError(error.message);
       console.error("Error fetching products:", error);
@@ -48,6 +50,15 @@ const Home = () => {
     <div>
       <h1>{loggedInUser}</h1>
       <button onClick={handleLogout}>Logout</button>
+      <div>
+        {
+          products && products?.map((item) => (
+            <ul>
+              <span>{item.name} {item.price}</span>
+            </ul>
+          ))
+        }
+      </div>
       <ToastContainer />
     </div>
   )
